@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{14261FA5-6F3C-4275-AF81-BACDAC555EF5}</ProjectGuid>
+    <ProjectGuid>{CC202714-D24A-483A-B041-27715719613F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EBView</RootNamespace>

@@ -1,0 +1,13 @@
+C:\Users\enne\Documents\Visual Studio 2015\Projects\EBView\EBView\bin\Debug\EBView.exe.config
+C:\Users\enne\Documents\Visual Studio 2015\Projects\EBView\EBView\bin\Debug\EBView.exe
+C:\Users\enne\Documents\Visual Studio 2015\Projects\EBView\EBView\bin\Debug\EBView.pdb
+C:\Users\enne\Documents\Visual Studio 2015\Projects\EBView\EBView\obj\Debug\MainWindow.g.cs
+C:\Users\enne\Documents\Visual Studio 2015\Projects\EBView\EBView\obj\Debug\App.g.cs
+C:\Users\enne\Documents\Visual Studio 2015\Projects\EBView\EBView\obj\Debug\EBView_MarkupCompile.cache
+C:\Users\enne\Documents\Visual Studio 2015\Projects\EBView\EBView\obj\Debug\EBView_MarkupCompile.lref
+C:\Users\enne\Documents\Visual Studio 2015\Projects\EBView\EBView\obj\Debug\MainWindow.baml
+C:\Users\enne\Documents\Visual Studio 2015\Projects\EBView\EBView\obj\Debug\EBView.g.resources
+C:\Users\enne\Documents\Visual Studio 2015\Projects\EBView\EBView\obj\Debug\EBView.Properties.Resources.resources
+C:\Users\enne\Documents\Visual Studio 2015\Projects\EBView\EBView\obj\Debug\EBView.csproj.GenerateResource.Cache
+C:\Users\enne\Documents\Visual Studio 2015\Projects\EBView\EBView\obj\Debug\EBView.exe
+C:\Users\enne\Documents\Visual Studio 2015\Projects\EBView\EBView\obj\Debug\EBView.pdb
