@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EBView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="252" Width="99" MinWidth="250" MinHeight="350">
+        Title="MainWindow" Height="378" Width="343" MinWidth="200" MinHeight="320" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Grid Margin="0,36,0,0" >
-            <WrapPanel Height="32" VerticalAlignment="Top" Margin="0,-18,0,0">
-                <TextBox x:Name="FilePath" TextWrapping="Wrap" Width="153" Height="20" Margin="5"/>
-                <Button x:Name="FileOpenbtn" Content="열기" HorizontalAlignment="Left" Width="60" Height="20" Margin="5" Click="FileOpenbtn_Click"/>
-            </WrapPanel>
-            <UniformGrid Margin="0,14,0,25" >
+        <Grid Margin="0,14,0,0" >
+            <Grid Height="32" VerticalAlignment="Top" UseLayoutRounding="False">
+                <TextBox x:Name="FilePath" Margin="5,5,83,7" MaxLines="1"/>
+                <Button x:Name="FileOpenbtn" Content="열기" Click="FileOpenbtn_Click" HorizontalAlignment="Right" Width="55" Margin="0,5,10,7"/>
+            </Grid>
+            <UniformGrid Margin="0,32,0,25" >
                 <RichTextBox x:Name="TextView">
                     <FlowDocument>
                         <Paragraph>
@@ -21,11 +21,11 @@
                     </FlowDocument>
                 </RichTextBox>
             </UniformGrid>
-            <WrapPanel Height="24" VerticalAlignment="Bottom" MinHeight="25" RenderTransformOrigin="0.5,0.5">
-                <Button x:Name="PPage" Content="&lt;" Width="20" Height="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,1,5,0" Padding="1"/>
-                <TextBox x:Name="textBox1" Height="20" TextWrapping="Wrap" Text="1" Width="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,1,0,0" Margin="0,1,0,0"/>
-                <Button x:Name="NPage" Content="&gt;" Width="20" Height="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5,1,0,0" Padding="1"/>
-            </WrapPanel>
+            <Grid Height="25" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Bottom" Margin="10,0">
+                <Button x:Name="PPage" Content="&lt;" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="1" Margin="15,4,0,4" HorizontalAlignment="Left" Width="31" FontSize="10"/>
+                <TextBox x:Name="PageNumber" TextWrapping="Wrap" Text="1/1" Padding="0" Margin="52,4,0,4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="57" MaxLines="1" MinLines="1" Height="17"/>
+                <Button x:Name="NPage" Content="&gt;" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="1" Margin="115,4,0,4" HorizontalAlignment="Left" Width="31" FontSize="10"/>
+            </Grid>
         </Grid>
 
     </Grid>

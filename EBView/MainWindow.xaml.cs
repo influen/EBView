@@ -27,9 +27,7 @@ namespace EBView
         public MainWindow()
         {
             InitializeComponent();
-            
             TextViewSize();
-            TextRender();
         }
         public void OpenFile()
         {
@@ -41,20 +39,21 @@ namespace EBView
             FilePath.Text = FilePath.Text.Trim();
             if (FilePath.Text.Any())
             {
-                
+
                 if (FilePathCheck(FilePath.Text) == true)
                 {
                     if (ofd.FileName != FilePath.Text)
                     {
-                        FDocR(FilePath.Text);
+                        //FDocR(FilePath.Text);
+                        TextRender();
                     }
                     else
                     {
                         if (result == true)
                         {
                             Fpath = ofd.FileName;
-                            FDocR(Fpath);
                             FilePath.Text = ofd.FileName;
+                            TextRender();
                         }
                     }
                 }
@@ -64,8 +63,8 @@ namespace EBView
                     if (result == true)
                     {
                         Fpath = ofd.FileName;
-                        FDocR(Fpath);
                         FilePath.Text = ofd.FileName;
+                        TextRender();
                     }
                 }
             }
@@ -73,7 +72,7 @@ namespace EBView
             {
                 FilePath.Text = ofd.FileName;
                 Fpath = ofd.FileName;
-                FDocR(Fpath);
+                TextRender();
             }
         }
         public void TextViewSize()
@@ -81,7 +80,6 @@ namespace EBView
             var TextViewSizefontsize = TextView.FontSize;
             var TextViewSizewidth = TextView.ActualWidth;
             var TextViewSizeheight = TextView.ActualHeight;
-
             var WLength = TextViewSizewidth / TextViewSizefontsize;
             var TextViewLines = TextViewSizeheight / TextViewSizefontsize;
         }
@@ -98,27 +96,46 @@ namespace EBView
         }
         public void TextRender()
         {
-            
-           // using (StreamReader sr = new StreamReader(Fpath))
-           // {
-               
-                // TextSplit ts = new TextSplit();
-                //TextSplit.textFiles = new List<string>();
-             //   string sLine;
-              //  while ((sLine = sr.ReadLine()) != null)
-               // {
-                    //  TextSplit.textFiles.Add(sLine);
-              //  }
-                // int iOnePageLines;
 
-                //   Textview.Document.Blocks.Add(new Paragraph(new Run(TextSplit.textFiles[2])));
-                //  Textview.Document.Blocks.Add(new Paragraph(new Run(TextSplit.textFiles[2])));
-                TextViewSize();
-                // this.Title = TextSplit.astitle;
+            List<string> textFiles = new List<string>();
+            string sLine = string.Empty;
+            StreamReader srr = TextCopy(Fpath);
+            Paragraph paragraph = new Paragraph();
+            int index = 0;
+            int count = 500;
+            while (srr.EndOfStream != true)
+            {
+                char[] buffer = new char[count - index];
+                srr.ReadBlock(buffer, 0, buffer.Length);
+                sLine = new String(buffer);
+                textFiles.Add(sLine);
+                index = count;
+                count += 500;
+            }
+            short EndPageNumber = (short)textFiles.Count;
+            PageNumber.Text = $"1/{EndPageNumber}";
+            paragraph.Inlines.Add(textFiles[2]);
             
+            FlowDocument document = new FlowDocument(paragraph);
+            TextView.Document = document;
 
+            document.Background = Brushes.Beige;
+            paragraph.BorderBrush = Brushes.Blue;
+            ThicknessConverter tc = new ThicknessConverter();
+            paragraph.BorderThickness = (Thickness)tc.ConvertFromString("2");
+
+            //   Textview.Document.Blocks.Add(new Paragraph(new Run(TextSplit.textFiles[2])));
+            //  Textview.Document.Blocks.Add(new Paragraph(new Run(TextSplit.textFiles[2])));
+            //  document.MaxPageWidth = 800;
+            //   document.PageWidth = 500;
+            // document.ColumnWidth = 800;
+            // this.Title = TextSplit.astitle;
 
         }
+        //public void FDocR(string path)
+        //{
+        //}
+
         public bool FilePathCheck(string Fpath)
         {
             string path = Fpath;
@@ -132,24 +149,6 @@ namespace EBView
             return check;
         }
 
-
-        public void FDocR(string path)
-        {
-     
-            StreamReader srr =  TextCopy(Fpath);
-            Paragraph paragraph = new Paragraph();
-            paragraph.Inlines.Add(srr.ReadToEnd());
-          
-            FlowDocument document = new FlowDocument(paragraph);
-            TextView.Document = document;
-            document.Background = Brushes.Beige;
-            document.ColumnWidth = 800;
-            //  document.MaxPageWidth = 800;
-            paragraph.BorderBrush = Brushes.Blue;
-            ThicknessConverter tc = new ThicknessConverter();
-            paragraph.BorderThickness = (Thickness)tc.ConvertFromString("2");
-            //   document.PageWidth = 500;
-        }
         private void FileOpenbtn_Click(object sender, RoutedEventArgs e)
         {
             OpenFile();
