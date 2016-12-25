@@ -14,146 +14,106 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using Microsoft.Win32;
+using System.Globalization;
 
 namespace EBView
 {
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
     /// </summary>
+    /// 
     public partial class MainWindow : Window
     {
-        string Fpath;
+        //  public RichTextBox TextView;
+      //  public static MainWindow MainW;
+        public  Point viewsize;
+        
+        public Point ViewSize
+        {
+            get
+            {
+                Point viewsize = new Point();
 
+                viewsize.X = TextView.ActualWidth;
+                viewsize.Y = TextView.ActualHeight;
+
+                return viewsize;
+            }
+            set { viewsize = value; }
+            
+        }
+       // List<string> textFs = new List<string>();
+        
+            
         public MainWindow()
         {
             InitializeComponent();
-            TextViewSize();
-        }
-        public void OpenFile()
-        {
-            Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
-            Nullable<bool> result = ofd.ShowDialog();
-            ofd.DefaultExt = "*.txt";
-            ofd.Filter = "Text files| *.txt|All Files|*.*";
-            ofd.Title = "select Text file";
-            FilePath.Text = FilePath.Text.Trim();
-            if (FilePath.Text.Any())
-            {
+            //MainW = this;
 
-                if (FilePathCheck(FilePath.Text) == true)
-                {
-                    if (ofd.FileName != FilePath.Text)
-                    {
-                        //FDocR(FilePath.Text);
-                        TextRender();
-                    }
-                    else
-                    {
-                        if (result == true)
-                        {
-                            Fpath = ofd.FileName;
-                            FilePath.Text = ofd.FileName;
-                            TextRender();
-                        }
-                    }
-                }
-                else
-                {
-                    System.Windows.MessageBox.Show(FilePath.Text + " 파일을 찾을수없습니다.");
-                    if (result == true)
-                    {
-                        Fpath = ofd.FileName;
-                        FilePath.Text = ofd.FileName;
-                        TextRender();
-                    }
-                }
-            }
-            else if (result == true)
-            {
-                FilePath.Text = ofd.FileName;
-                Fpath = ofd.FileName;
-                TextRender();
-            }
-        }
-        public void TextViewSize()
-        {
-            var TextViewSizefontsize = TextView.FontSize;
-            var TextViewSizewidth = TextView.ActualWidth;
-            var TextViewSizeheight = TextView.ActualHeight;
-            var WLength = TextViewSizewidth / TextViewSizefontsize;
-            var TextViewLines = TextViewSizeheight / TextViewSizefontsize;
-        }
-        public StreamReader TextCopy(String Fpath)
-        {
-            string path = Fpath;
-            StreamReader mem = new StreamReader(path);
-            string memString = mem.ReadToEnd();
-            byte[] buffer = Encoding.UTF8.GetBytes(memString);
-            MemoryStream ms = new MemoryStream(buffer);
-            ms.Position = 0;
-            StreamReader sr = new StreamReader(ms);
-            return sr;
-        }
-        public void TextRender()
-        {
 
-            List<string> textFiles = new List<string>();
-            string sLine = string.Empty;
-            StreamReader srr = TextCopy(Fpath);
-            Paragraph paragraph = new Paragraph();
-            int index = 0;
-            int count = 500;
-            while (srr.EndOfStream != true)
-            {
-                char[] buffer = new char[count - index];
-                srr.ReadBlock(buffer, 0, buffer.Length);
-                sLine = new String(buffer);
-                textFiles.Add(sLine);
-                index = count;
-                count += 500;
-            }
-            short EndPageNumber = (short)textFiles.Count;
-            PageNumber.Text = $"1/{EndPageNumber}";
-            paragraph.Inlines.Add(textFiles[2]);
-            
-            FlowDocument document = new FlowDocument(paragraph);
-            TextView.Document = document;
 
-            document.Background = Brushes.Beige;
-            paragraph.BorderBrush = Brushes.Blue;
-            ThicknessConverter tc = new ThicknessConverter();
-            paragraph.BorderThickness = (Thickness)tc.ConvertFromString("2");
-
-            //   Textview.Document.Blocks.Add(new Paragraph(new Run(TextSplit.textFiles[2])));
-            //  Textview.Document.Blocks.Add(new Paragraph(new Run(TextSplit.textFiles[2])));
-            //  document.MaxPageWidth = 800;
-            //   document.PageWidth = 500;
-            // document.ColumnWidth = 800;
-            // this.Title = TextSplit.astitle;
 
         }
-        //public void FDocR(string path)
-        //{
-        //}
 
-        public bool FilePathCheck(string Fpath)
-        {
-            string path = Fpath;
-            bool check = false;
+        TextRenders tr = new TextRenders();
+        FileOpen fo = new FileOpen();
 
-            FileInfo fi = new FileInfo(path);
-            if (fi.Exists == true)
-            {
-                check = true;
-            }
-            return check;
-        }
-
+     
         private void FileOpenbtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenFile();
+            FileOpen fo = new FileOpen();
+            fo.OpenFile();
+            
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+           // DevMonitor dv = new DevMonitor();
+           DevMonitor.Dev();
+        }
+
+        private void NPage_Click(object sender, RoutedEventArgs e)
+        {
+            
+            
+            if (!string.IsNullOrEmpty(FileOpen.Filepath))
+            {
+                tr.Paging(tr.PNumber + 1);
+            }
+        }
+
+        private void PPage_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (!string.IsNullOrEmpty(FileOpen.Filepath))
+                {
+                    tr.Paging(tr.PNumber - 1);
+                }
+
+        }
+
+        private void PageNumber_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+
+                if (!string.IsNullOrEmpty(FileOpen.Filepath))
+                {
+                    int page = int.Parse(PageNumber.Text);
+                    tr.Paging(page);
+                }
+
+            }
+            else if (!(((Key.D0 <= e.Key) && (e.Key <= Key.D9))
+                 || ((Key.NumPad0 <= e.Key) && (e.Key <= Key.NumPad9))
+                 || e.Key == Key.Back))
+            {
+                e.Handled = true;
+            }
+        }
     }
+
+
 }
 
