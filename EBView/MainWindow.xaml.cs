@@ -79,7 +79,7 @@ namespace EBView
             
             if (!string.IsNullOrEmpty(FileOpen.Filepath))
             {
-                tr.Paging(tr.PNumber + 1);
+                tr.Paging(TextRenders.PNumber + 1);
             }
         }
 
@@ -88,7 +88,7 @@ namespace EBView
             
             if (!string.IsNullOrEmpty(FileOpen.Filepath))
                 {
-                    tr.Paging(tr.PNumber - 1);
+                tr.Paging(TextRenders.PNumber - 1);
                 }
 
         }

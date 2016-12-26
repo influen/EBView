@@ -16,14 +16,14 @@ namespace EBView
     public class TextRenders
     {
         //private Point TextView;
-        private List<string> textfiles=new List<string>();
-        private int endpagenumber=1;
-        private int pnumber=1;
+        private static List<string> textfiles=new List<string>();
+        private static int endpagenumber;
+        private static int pnumber;
         
 
-        public List<string> TextFiles { get{ return this.textfiles; } set{ } }
-        public int EndPageNumber { get { return this.endpagenumber; } set { } }
-        public int PNumber { get { return this.pnumber; } set { } }
+        public static List<string> TextFiles { get{ return textfiles; } set{ } }
+        public static int EndPageNumber { get { return endpagenumber; } set { } }
+        public static int PNumber { get { return pnumber; } set { } }
 
         public TextRenders() { }
 
@@ -38,6 +38,8 @@ namespace EBView
         //}
         public void TextRender(Point ViewSize) //텍스트 스플리트
         {
+            DevMonitor.sw.Start();
+            
             MainWindow mw = (MainWindow)System.Windows.Application.Current.MainWindow;
             Point viewsize = ViewSize;
             
@@ -63,7 +65,8 @@ namespace EBView
 
                 while (lineend)//한줄커팅
                 {
-                    OneLine.Append(srr.Read());
+                    //OneLine.Append(srr.Read());
+                    OneLine.Append(srr.ReadBlock(, 1, 1));
                     FormattedText formattedText = new FormattedText(OneLine.ToString(), CultureInfo.GetCultureInfo("ko-kr"),
                                     FlowDirection.LeftToRight, new Typeface("Arial"), 14, Brushes.Black);
                     //if (ViewSize[0] < formattedText.Width)
@@ -98,11 +101,12 @@ namespace EBView
 
                 }
             }
-            EndPageNumber = textfiles.Count;
+            endpagenumber = textfiles.Count;
             //PageNumber.Text = $"1/{EndPageNumber}";
-            mw.PageNumber.Text = PNumber.ToString();
-
-           // return textF;
+            mw.PageNumber.Text = pnumber.ToString();
+            DevMonitor.sw.Stop();
+            DevMonitor.LoadTime();
+            // return textF;
         }
 
 
@@ -207,17 +211,17 @@ namespace EBView
             int Page = page;
             Paragraph paragraph = new Paragraph();
             mw.PageNumber.Text = Page.ToString();
-            if (page >= EndPageNumber)
+            if (page >= endpagenumber)
             {
-                Page = EndPageNumber;
+                Page = endpagenumber;
             }
             else if (page <= 1)
             {
                 Page = 1;
-                PNumber = 1;
+                pnumber = 1;
             }
 
-            PNumber = page;
+            pnumber = page;
             mw.PageNumber.Text = Page.ToString();
             paragraph.Inlines.Add(textfiles[Page - 1]);
 

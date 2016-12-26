@@ -14,7 +14,8 @@ namespace EBView
 
         //필드
         private static string filepath;
-         struct textfileinfo
+        private static string filename;
+        struct textfileinfo
         {
             public long filesize;
             public int stringcount;
@@ -29,6 +30,7 @@ namespace EBView
 
         //프로퍼티
         public static string Filepath { get { return filepath; } set { filepath = value; } }
+        public static string Filename { get { return filename; } set { filename = value; } }
 
         //클래스 생성자 필드초기화
         public FileOpen()
@@ -102,13 +104,7 @@ namespace EBView
             {
                 check = true;
             }
-
-
-          
             
-
-
-
             return check;
         }
 
