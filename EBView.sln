@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2011
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBView", "EBView\EBView.csproj", "{14261FA5-6F3C-4275-AF81-BACDAC555EF5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4C68CECF-0424-4ABC-A2A1-802057120DCE} = {4C68CECF-0424-4ABC-A2A1-802057120DCE}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageCut", "PageCut\PageCut.csproj", "{4C68CECF-0424-4ABC-A2A1-802057120DCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +20,15 @@ Global
 		{14261FA5-6F3C-4275-AF81-BACDAC555EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14261FA5-6F3C-4275-AF81-BACDAC555EF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14261FA5-6F3C-4275-AF81-BACDAC555EF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C68CECF-0424-4ABC-A2A1-802057120DCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C68CECF-0424-4ABC-A2A1-802057120DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C68CECF-0424-4ABC-A2A1-802057120DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C68CECF-0424-4ABC-A2A1-802057120DCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B2B40C9-EE5F-4F48-B081-25BA3771C92E}
 	EndGlobalSection
 EndGlobal

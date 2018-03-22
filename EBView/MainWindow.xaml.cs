@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.IO;
 using Microsoft.Win32;
 using System.Globalization;
+using PageCut;
+
 
 namespace EBView
 {
@@ -33,7 +35,7 @@ namespace EBView
             get
             {
                 Point viewsize = new Point();
-
+                
                 viewsize.X = TextView.ActualWidth;
                 viewsize.Y = TextView.ActualHeight;
 
@@ -49,20 +51,21 @@ namespace EBView
         {
             InitializeComponent();
             //MainW = this;
-
-
-
+            
+            PageCuts.
+            
 
         }
 
         TextRenders tr = new TextRenders();
-        FileOpen fo = new FileOpen();
 
-     
+        
+        
+        
         private void FileOpenbtn_Click(object sender, RoutedEventArgs e)
         {
-            FileOpen fo = new FileOpen();
-            fo.OpenFile();
+            //FileOpen fo = new FileOpen();
+            FileOpen.OpenFile();
             
         }
 

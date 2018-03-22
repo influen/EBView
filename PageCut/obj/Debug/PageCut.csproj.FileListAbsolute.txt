@@ -1,0 +1,6 @@
+C:\Users\enne\Documents\Visual Studio 2017\Project\EBView\PageCut\bin\Debug\PageCut.dll
+C:\Users\enne\Documents\Visual Studio 2017\Project\EBView\PageCut\bin\Debug\PageCut.pdb
+C:\Users\enne\Documents\Visual Studio 2017\Project\EBView\PageCut\obj\Debug\PageCut.csprojResolveAssemblyReference.cache
+C:\Users\enne\Documents\Visual Studio 2017\Project\EBView\PageCut\obj\Debug\PageCut.csproj.CoreCompileInputs.cache
+C:\Users\enne\Documents\Visual Studio 2017\Project\EBView\PageCut\obj\Debug\PageCut.dll
+C:\Users\enne\Documents\Visual Studio 2017\Project\EBView\PageCut\obj\Debug\PageCut.pdb

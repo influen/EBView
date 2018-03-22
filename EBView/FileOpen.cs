@@ -39,12 +39,12 @@ namespace EBView
         }
 
         //메서드
-        public void OpenFile() //파일오픈
+        public static void OpenFile() //파일오픈
         {
-            Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
-            ofd.DefaultExt = "*.txt";
-            ofd.Filter = "Text files| *.txt|All Files|*.*";
-            ofd.Title = "select Text file";
+            Microsoft.Win32.OpenFileDialog ofdd = new Microsoft.Win32.OpenFileDialog();
+            ofdd.DefaultExt = "*.txt";
+            ofdd.Filter = "Text files| *.txt|All Files|*.*";
+            ofdd.Title = "select Text file";
             MainWindow mw = (MainWindow)System.Windows.Application.Current.MainWindow;
 
 
@@ -63,10 +63,10 @@ namespace EBView
                     }
                     else
                     {
-                        if (ofd.ShowDialog() == true)
+                        if (ofdd.ShowDialog() == true)
                         {
-                            filepath = ofd.FileName;
-                            mw.FilePath.Text = ofd.FileName;
+                            filepath = ofdd.FileName;
+                            mw.FilePath.Text = ofdd.FileName;
                             tr.TextRender(mw.ViewSize);
                             tr.Paging(1);
                         }
@@ -75,26 +75,26 @@ namespace EBView
                 else
                 {
                     System.Windows.MessageBox.Show(mw.FilePath.Text + " 파일을 찾을수없습니다.");
-                    if (ofd.ShowDialog() == true)
+                    if (ofdd.ShowDialog() == true)
                     {
-                        filepath = ofd.FileName;
-                        mw.FilePath.Text = ofd.FileName;
+                        filepath = ofdd.FileName;
+                        mw.FilePath.Text = ofdd.FileName;
                         tr.TextRender(mw.ViewSize);
                         tr.Paging(1);
                     }
                 }
             }
-            else if (ofd.ShowDialog() == true)
+            else if (ofdd.ShowDialog() == true)
             {
-                mw.FilePath.Text = ofd.FileName;
-                filepath = ofd.FileName;
+                mw.FilePath.Text = ofdd.FileName;
+                filepath = ofdd.FileName;
                 tr.TextRender(mw.ViewSize);
                 tr.Paging(1);
             }
             
         }
 
-        public bool FilePathCheck(string filepath) //파일 체크
+        public static bool FilePathCheck(string filepath) //파일 체크
         {
             string path = filepath;
             bool check = false;
@@ -108,46 +108,45 @@ namespace EBView
             return check;
         }
 
-        public StreamReader TextCopy() //파일 메모리저장
+        public string TextCopy() //파일 메모리저장
         {
-
-
-
-
-
-        
-
-
-
-            ObjectCache cache = MemoryCache.Default;
-            string filenames = cache["filenames"] as string;
-            if (filenames == null)
+           
+            using (StreamReader sr = new StreamReader(filepath, true))
             {
+
+
+                Encoding enc = sr.CurrentEncoding ;
+               
+                ObjectCache cache = MemoryCache.Default;
+                string filenames = cache["filenames"] as string;
+                filenames = File.ReadAllText(filepath);
+                
+                //if (filenames == null)
+                // {
                 CacheItemPolicy policy = new CacheItemPolicy();
                 policy.AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(300.0);
                 List<string> filepaths = new List<string>();
                 filepaths.Add(filepath);
                 policy.ChangeMonitors.Add(new HostFileChangeMonitor(filepaths));
-
-                filenames = File.ReadAllText(filepath);
-                //StreamReader mem = new StreamReader(filepath);
+                filenames = File.ReadAllText(filepath, enc);
                 cache.Set("filenames", filenames, policy);
-               
-                
+
+
+                //            }
+                //string memString = mem.ReadToEnd();
+
+                // var bytes = Encoding.UTF8.GetBytes(memString);
+                //  byte[] buffer = Encoding.UTF8.GetBytes(filenames);
+                // var bytes = File.ReadAllBytes(path);
+                //  var bytes = Encoding.UTF8.GetBytes(path);
+                //  MemoryStream memcopy = new MemoryStream(buffer);
+
+                //StreamReader sr = new StreamReader(memcopy,Encoding.UTF8);
+                // using (var sr = new BinaryReader(memcopy, Encoding.UTF8))
+                //    var sss=Encoding.UTF8.GetString(memcopy.ToArray());
+                // StreamReader sr = new StreamReader(memcopy);
+                return filenames;
             }
-            //string memString = mem.ReadToEnd();
-
-            // var bytes = Encoding.UTF8.GetBytes(memString);
-            byte[] buffer = Encoding.UTF8.GetBytes(filenames);
-            // var bytes = File.ReadAllBytes(path);
-            //  var bytes = Encoding.UTF8.GetBytes(path);
-            MemoryStream memcopy = new MemoryStream(buffer);
-
-            //StreamReader sr = new StreamReader(memcopy,Encoding.UTF8);
-            // using (var sr = new BinaryReader(memcopy, Encoding.UTF8))
-            //    var sss=Encoding.UTF8.GetString(memcopy.ToArray());
-            StreamReader sr = new StreamReader(memcopy);
-            return sr;
         }
     }
 }
